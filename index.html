@@ -13,14 +13,207 @@
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous"
         />
-        <link
-        rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700"
-        />
-    <title>Survival Instinct in Offline RL</title>
-</head>
-<h1>Survival Instinct in Offline RL</h1>
+
+        <style>
+        p    {text-align: justify; text-justify: inter-word;}
+        </style>
+
+        <title>Survival Instinct in Offline RL</title>
+    </head>
 
 <body>
+    <div class="bg-light pt-5 sticky-top">
+        <div class="container">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-lg-8 col-md-10 col-sm-12 col-12 text-center">
+                    <h1>Survival Instinct in Offline RL</h1>
+                    <p class="text-center">
+                        <a href="https://anqili.github.io" target="_blank">Anqi Li</a><sup>1</sup>,
+                        <a href="https://dipendramisra.com" target="_blank">Dipendra Misra</a><sup>2</sup>,
+                        <a href="https://www.microsoft.com/en-us/research/people/akolobov/" target="_blank">Andrey Kolobov</a><sup>2</sup>,
+                        <a href="https://www.chinganc.com" target="_blank">Ching-An Cheng</a><sup>2</sup>
+                    </p>
+                    <p class="text-center">
+                        <sup>1</sup> University of Washington, <sup>2</sup> Microsoft Research
+                    </p>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-light pb-3">
+        <div class="container mb-2">
+            <div class="row">
+                <div class="col"></div>
+                <div class="col-lg-8 col-md-10 col-sm-12 col-12">
+                    <p class="text-center"><a href="https://neurips.cc/virtual/2023/poster/70254" target="_blank">NeurIPS 2023 (Spotlight)</a></p>
+                    <div class="row justify-content-center">
+                        <a href="https://arxiv.org/abs/2306.03286" target="_blank" role="button" class="btn btn-outline-primary mx-2">arXiv</a>
+                        <a href="https://arxiv.org/pdf/2306.03286.pdf" target="_blank" role="button" class="btn btn-outline-primary mx-2">Paper</a>
+                        <a href="#" role="button" class="btn btn-outline-primary mx-2">Code coming soon</a>
+                    </div>
+                </div>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+    <div class="container pt-5">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col-10">
+                <p class="lead py-3">
+                    <span class="text-primary">[TL;DR]</span> Surprisingly, offline RL can produce good policies even when trained on “wrong” reward labels. Here is why it happens and why it matters!
+                </p>
+                <h2 class="my-3">The Surprising Findings</h2>
+                <h4 class="my-2">Offline RL can learn good policies with <u>"bad"</u> rewards</h4>
+                <p>
+                    Below we show the learned policies by <a href="https://arxiv.org/abs/2202.02446" target="_blank">ATAC (Cheng et al. 2022)</a>, a state-of-the-art offline RL algorithm, on different variations of the
+                    <code>hopper-medium-v2</code>
+                    dataset from a popular offline RL benchmark called <a href="https://arxiv.org/abs/2004.07219" target="_blank">D4RL (Fu et al. 2020)</a>. The goal of <code>hopper</code> is to move forward as fast as possible while avoiding falling down. Surprisingly, ATAC can learn good policies not only with the well-designed true reward (<strong>Original Reward</strong>), but also with <u>"bad" rewards that are uninformative or misleading</u>, for example, constant zero reward (<strong>Zero Reward</strong>), reward randomly sampled from a uniform distribution (<strong>Random Reward</strong>), and even the negation of the true reward (<strong>Negative Reward</strong>). Moreover, the learned policies differ qualitatively to the behavioral policy (<strong>Behavior Policy</strong>) which is used for data generation, showing that this is not a result of simple imitation.
+                </p>
+
+                <div class="row justify-content-center mb-5">
+                    <div class="card mx-2 border-0" style="width: 150px;">
+                        <div class="card-body">
+                            <p class="card-text text-center font-weight-bold">Behavior Policy</p>
+                        </div>
+                        <img class="card-img-bottom" src="./assets/hopper-medium-behavior.gif" alt="hopper-medium-behavior" style="width: 150px;">
+                    </div>
+                    <div class="card mx-2 border-0" style="width: 150px;">
+                        <div class="card-body">
+                            <p class="card-text text-center font-weight-bold">Original Reward</p>
+                        </div>
+                        <img class="card-img-bottom" src="./assets/hopper-medium-original.gif" alt="hopper-medium-original" style="width: 150px;">
+                    </div>
+                    <div class="card mx-2 border-0" style="width: 150px;">
+                        <div class="card-body">
+                            <p class="card-text text-center font-weight-bold">Zero</br>Reward</p>
+                        </div>
+                        <img class="card-img-bottom" src="./assets/hopper-medium-zero.gif" alt="hopper-medium-zero" style="width: 150px;">
+                    </div>
+                    <div class="card mx-2 border-0" style="width: 150px;">
+                        <div class="card-body">
+                            <p class="card-text text-center font-weight-bold">Random Reward</p>
+                        </div>
+                        <img class="card-img-bottom" src="./assets/hopper-medium-random.gif" alt="hopper-medium-random" style="width: 150px;">
+                    </div>
+                    <div class="card mx-2 border-0" style="width: 150px;">
+                        <div class="card-body">
+                            <p class="card-text text-center font-weight-bold">Negative Reward</p>
+                        </div>
+                        <img class="card-img-bottom" src="./assets/hopper-medium-negative.gif" alt="hopper-medium-negative" style="width: 150px;">
+                    </div>
+                </div>
+
+                <h4 class="my-2">This is <u>not</u> unique to a single dataset or algorithm</h4>
+                <p>
+                    We train a total of around 16k offline RL agents across 30 offline datasets with 5 offline RL algorithms, and observe similar phenomenon of various degree for most of them (please see the paper for results). In the paper, we also formally show that 9 offline RL algorithms can provably achieve such an effect given certain offline data.
+                </p>
+
+
+                <div class="row my-5">
+                    <div class="col"></div>
+                    <div class="col-lg-8 col-md-10 col-sm-12 col-12"><img class="img-fluid" src="./assets/summary.png" alt="summary-of-results"></div>
+                    <div class="col"></div>
+                </div>
+
+                <p>Below we show the normalized score of policies learned by ATAC on 15 D4RL locomotion datasets. For most <code>hopper-*-v2</code> and <code>walker2d-*-v2</code> datasets, we observe that ATAC with "bad" rewards can attain notably higher score than behavior policies. For all <code>*-expert-v2</code> datasets (denoted as <code>exp</code> in the figure below), including <code>halfcheetah-expert-v2</code>, ATAC can achieve expert-level performance even with "bad" rewards. Results from other offline RL algorithms and datasets can be found in the paper.</p>
+
+                <div class="row mt-5">
+                    <div class="col"></div>
+                    <div class="col-8"><img class="img-fluid" src="./assets/legend.png" alt="d4rl-legend"></div>
+                    <div class="col"></div>
+                </div>
+                <div class="row justify-content-center">
+                    <img class="img-fluid" src="./assets/d4rl_scores.png" alt="d4rl-scores">
+                </div>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row mt-5">
+            <div class="col"></div>
+            <div class="col-10">
+                <h2 class="mb-3">The Explanations</h2>
+                <p>
+                    This surprising robustness property of offline RL algorithms is attributable to an interplay between pessimism, a underlying design principle of many offline RL algorithms, and certain implicit biases in common data collection practices.
+                </p>
+                <ul>
+                    <li class="pb-2">
+                        <h4 class="my-3"><u>Explanation part 1: Offline RL has <strong>survival instinct</strong></u></h4>
+                        <h5>Pessimism endows offline RL agents with a survival instinct</h5>
+                        <p>
+                            Offline RL algorithms commonly use the idea of <u>pessimism</u> to deal with distribution mismatch. Pessimism actually gives offline RL algorithms a property which we call it <u>survival instinct</u>. In other words, with the learned policy, the agent would seek to stay within data support <u>in the long term</u>.
+                        </p>
+                        <p>
+                            Formally, we show that offline RL algorithms approximately solve an implicit constrained MDP, where the constraints are defined by the offline data support. This new theoretical finding tells us that the behavior of offline RL algorithms is determined by two factors, <em>1)</em> the more obvious <u>return maximization</u> and <em>2)</em> our newly discovered <u>survival instinct</u>. Moreover, survival instinct sometimes can override the behavior of return maximization. This is why we observe that there is no qualitatively difference between policies learned with different rewards for <code>hopper-medium-v2</code> above.
+
+
+                        </p>
+                        <div class="row my-5 justify-content-center">
+                            <div class="col"></div>
+                            <div class="col-lg-6 col-md-9 col-sm-12 col-12"><img class="img-fluid" src="./assets/learned_policy.png" alt="learned-policy"></div>
+                            <div class="col"></div>
+                        </div>
+                        <h5>Offline RL is inherently safe with safe offline data</h5>
+                        <p>A direct implication of offline RL's survival instinct is that offline RL is <u>inherently safe RL</u> if the offline data distribution only contains safe states. Note that it does <u>not</u> require the behavior policy itself to be safe. We can see this from the <code>hopper-medium-v2</code> policies shown above. Despite that the behavior policy is not safe, i.e., the hopper falls under the behavior policy, the offline data distribution is actually safe because a data trajectory ends immediately when the hopper is about to fall. Because of its survival instinct, offline RL manages to learn safe policies even with the negative reward which penalizes staying alive.</p>
+
+                        <p>
+                        Our notion of inherent safety of offline RL differs from offline constrained RL, which focuses on learning safe, i.e., constraint satisfying, policies from <u>both safe and unsafe</u> offline data. Our results show that we can use offline RL to learn safe policies if the offline data are <u>safe data only</u>. This can be more suitable for situations where collecting unsafe data is expensive, infeasible, or unethical. Moreover, in the paper, we show that running offline RL on the safe portion of several <a href="https://arxiv.org/abs/2306.09303" target="_blank">offline safe RL benchmark datasets (Liu et al. 2023)</a> works as well as specialized algorithms which use the full dataset containing both safe and unsafe data.</p>
+                    </li>
+                    <li>
+                        <h4 class="mt-2"><u>Explanation part 2: Offline data has <strong>positive bias</strong></u></h4>
+                        <p>
+                            On the other hand, we observe that offline data often has certain <u>positive bias</u>. Survival instinct in this case can then directly imply high policy performance.
+                        </p>
+                        <h5>There are multiple sources of positive data bias</h5>
+                        <p>Offline data can have different properties which lead to positive bias. One example is <u>length bias</u>, i.e.,  data trajectories are longer if their performance is closer to optimal. Another example is <u>expert bias</u>, which is induced by when the behavior policy is optimal (or deterministic and near-optimal). We discuss a few more examples of positive data bias in the paper. </p>
+                        <h5>Benchmark datasets can have positive bias</h5>
+                        <p>Most D4RL locomotion datasets have length bias. In the figure below, we visualize each trajectory in D4RL datasets as a point, with its x-coordinate being trajectory length and y-coordinate being normalized score. For most datasets, there is a strong positive correlation between trajectory length and normalized score. Moreover, if we compare the figure below with the bar graph of normalized scores above, we can see that offline RL is not sensitive to reward when there is a strong correlation between trajectory length and performance, and vice versa (for example, for all <code>*-medium-replay-v2</code> datasets). All D4rl <code>*-expert-v2</code> datasets have expert bias, which explains why offline RL can achieve good performance with different rewards for these datasets.</p>
+                        <div class="row my-5 justify-content-center">
+                            <div class="col"></div>
+                            <div class="col-lg-8 col-md-10 col-sm-12 col-12"><img class="img-fluid" src="./assets/d4rl_datasets.png" alt="d4rl-datasets"></div>
+                            <div class="col"></div>
+                        </div>
+                        <h5>Positive bias can be naturally induced by common data collection practices</h5>
+                        <p>
+                            Positive bias is not just specific to D4RL datasets. In fact, positive bias can be <u>naturally</u> induced by common data collection practices. Let's take length bias again as an example. During data collection, performance-based interventions often happen. When the agent is clearly not making progress toward the task, it is quite common to stop and reset the agent. This is because we often have a limited time budget for data collection. And this would imply that data trajectories are usually longer if their performance is good. Similarly, safety-based interventions often exist during data collection, ensuring that offline data distribution is safe (even when the behavior policy is not safe).
+                        </p>
+                        <h5>Positive bias in data can be empirically quantified</h5>
+                        <p>In the paper, we provide a metric to empirically estimate the amount of positive data bias based on the performance of an offline RL algorithm under different rewards. Below we show the estimated positive bias in D4RL locomotion datasets with respect to ATAC. We encourage the community to compute this estimated positive bias when interpreting results of future offline RL algorithms and when releasing future offline RL benchmarks.</p>
+                        <div class="row my-2">
+                            <img class="img-fluid" src="./assets/d4rl_positive_bias.png" alt="d4rl-positive-bias">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="col"></div>
+        </div>
+        <div class="row mb-5">
+            <div class="col"></div>
+            <div class="col-10">
+                <h2 class="my-3">Implications</h2>
+                <ul>
+                    <li>
+                        <h4>Offline RL shouldn’t be evaluated like online RL</h4>
+                        <p>The behavior of offline RL depends on both <u>reward</u> and <u>data distribution</u>. Care should be taken when interpreting results on current benchmarks and when designing new offline RL benchmarks. We encourage the community to empirically estimate the amount of positive bias using the metric proposed in our paper.</p>
+                    </li>
+                    <li>
+                        <h4>Offline RL is safe RL</h4>
+                        <p>When offline data is safe, offline RL can inherently learn safe policies. Offline RL can be a valuable tool for safe RL in scenarios where collecting safe data is relatively easy while collecting unsafe data is expensive, unethical or infeasible.</p>
+                    </li>
+                    <li>
+                        <h4>We need to rethink about the effect of reward in offline RL</h4>
+                        <p>Offline RL can succeed with weak or no reward signals. When offline data has positive bias, offline RL may be applied to domains where reward labeling is expensive or infeasible. At the same time, offline RL (even with correct reward) may suffer from undesirable bias implicitly in data.</p>
+                    </li>
+                    <li>
+                        <h4>What is <u>not</u> included in data is as important as what is included</h4>
+                        <p>Learning from diverse data requires high-quality reward. It can be interesting future work to explore how to purposely collecting data with positive bias, e.g., through intervention, such that offline RL can work with weak or no reward signals.</p>
+                    </li>
+                </ul>
+            </div>
+            <div class="col"></div>
+        </div>
+    </div>
 </body>
 </html>
